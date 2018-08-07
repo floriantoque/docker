@@ -93,3 +93,5 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias jpn="source activate py27; jupyter notebook --no-browser --port=8887"
+
+cd toque
