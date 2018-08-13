@@ -56,8 +56,10 @@ RUN /opt/conda/envs/py35/bin/pip install seaborn
 RUN /opt/conda/envs/py35/bin/pip install plotly
 RUN /opt/conda/envs/py35/bin/pip install colorlover
 RUN conda install -yn py35 theano pygpu bcolz 
-RUN /opt/conda/envs/py35/bin/pip install sklearn_pandas 
-RUN conda install -yn py35 Pillow scikit-learn notebook pandas mkl nose pyyaml six h5py 
+RUN /opt/conda/envs/py35/bin/pip install -U pandas==0.19.2 
+RUN conda install -yn py35 Pillow scikit-learn notebook mkl nose pyyaml six h5py
+RUN /opt/conda/envs/py35/bin/pip install sklearn_pandas
+RUN /opt/conda/envs/py35/bin/pip install geopandas 
 RUN /opt/conda/envs/py35/bin/pip install git+git://github.com/fchollet/keras.git 
 RUN /opt/conda/envs/py35/bin/python -m ipykernel install --user --name py35 --display-name "Python 3.5 - env"
 RUN conda clean -yt
@@ -73,14 +75,15 @@ RUN /opt/conda/envs/py27/bin/pip install tensorflow-gpu
 RUN /opt/conda/envs/py27/bin/pip install -U statsmodels
 RUN /opt/conda/envs/py27/bin/pip install tqdm
 RUN /opt/conda/envs/py27/bin/pip install requests
-RUN /opt/conda/envs/py27/bin/pip install geopandas
-RUN conda install -yn py27 theano pygpu bcolz 
-RUN /opt/conda/envs/py27/bin/pip install sklearn_pandas 
+RUN conda install -yn py27 theano pygpu bcolz  
 RUN /opt/conda/envs/py27/bin/pip install -U matplotlib
 RUN /opt/conda/envs/py27/bin/pip install seaborn
 RUN /opt/conda/envs/py27/bin/pip install plotly
 RUN /opt/conda/envs/py27/bin/pip install colorlover
-RUN conda install -yn py27 Pillow scikit-learn notebook pandas mkl nose pyyaml six h5py 
+RUN /opt/conda/envs/py27/bin/pip install -U pandas==0.19.2
+RUN conda install -yn py27 Pillow scikit-learn notebook mkl nose pyyaml six h5py
+RUN /opt/conda/envs/py27/bin/pip install geopandas
+RUN /opt/conda/envs/py27/bin/pip install sklearn_pandas 
 RUN /opt/conda/envs/py27/bin/pip install git+git://github.com/fchollet/keras.git 
 RUN /opt/conda/envs/py27/bin/python -m ipykernel install --user --name py27 --display-name "Python 2.7 - env"
 RUN conda clean -yt
