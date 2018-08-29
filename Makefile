@@ -15,22 +15,11 @@ CUDNN_VERSION?=7
 TEST=tests/
 #SRC?=$(shell dirname `pwd`)
 SRC?="${HOME}/Documents/workclean/project/"
-IMAGE="my_keras_image"
+IMAGE="my_python_image"
 
 build:
 	docker build -t $(IMAGE) --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) -f $(DOCKER_FILE) .
 
 bash: build
-	$(DOCKER) run -it -v $(SRC):/home/toque/work/ -v $(DATA):/home/toque/data -v $(DATA2):/home/toque/data2 --env KERAS_BACKEND=$(BACKEND) $(IMAGE) bash
+	$(DOCKER) run -it -v $(SRC):/home/toque/work/ -v $(DATA):/home/toque/data -v $(DATA2):/home/toque/data2 --net=host --env KERAS_BACKEND=$(BACKEND) --name "my_python_container" $(IMAGE)
 
-ipython: build
-	$(DOCKER) run -it -v $(SRC):/home/toque/work/ -v $(DATA):/home/toque/data -v $(DATA2):/home/toque/data2 --env KERAS_BACKEND=$(BACKEND) $(IMAGE) ipython
-
-notebook: build
-	$(DOCKER) run -it -v $(SRC):/home/toque/work/ -v $(DATA):/home/toque/data -v $(DATA2):/home/toque/data2 --net=host --env KERAS_BACKEND=$(BACKEND) --name "my_keras_container" $(IMAGE) 
-
-test: build
-	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --env KERAS_BACKEND=$(BACKEND) keras py.test $(TEST)
-
-notebook2:
-	 $(DOCKER) run -it -v $(SRC):/home/toque/work/ -v $(DATA):/home/toque/data --net=host --env KERAS_BACKEND=$(BACKEND) --name "ckeras2" $(IMAGE)

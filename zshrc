@@ -92,6 +92,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias jpn="source activate py27; jupyter notebook --no-browser --port=8887"
+alias jpn27="source activate py27; jupyter notebook --no-browser --port=8887"
+alias jpn35="source activate py35; jupyter notebook --no-browser --port=8887"
+alias jpn="source activate py35; jupyter notebook --no-browser --port=8887"
 
 cd toque
