@@ -22,11 +22,11 @@ ii) activate Python version
     $ source activate py35 #or py27 for python 2.7  
 
 iib) run ipython notebook and access it in from a remote computer  
-    Computer with docker:  
+Computer with docker:  
 
     $ jupyter notebook --no-browser --port=8887   
 
-    Local computer:
+Local computer:
 
     $ ssh -N -f -L localhost:8885:127.0.0.1:8887 user@ip_computer_docker  
     
