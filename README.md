@@ -14,13 +14,23 @@ Available shell/process/editor:
 ## Workflow
 
 i) run the container  
+
     $ make bash  
+
 ii) activate Python version  
+
     $ source activate py35 #or py27 for python 2.7  
+
 iib) run ipython notebook and access it in from a remote computer  
-    Computer with docker: $ jupyter notebook --no-browser --port=8887   
-    Local computer: $ ssh -N -f -L localhost:8885:127.0.0.1:8887 user@ip_computer_docker  
-    Access to the notebook in the browser of the local computer at localhost:8885  
+    Computer with docker:  
+
+    $ jupyter notebook --no-browser --port=8887   
+
+    Local computer:
+
+    $ ssh -N -f -L localhost:8885:127.0.0.1:8887 user@ip_computer_docker  
+    
+Local computer: access to the notebook in the browser at localhost:8885  
 
 
 ## Installing Docker
