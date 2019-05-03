@@ -7,7 +7,8 @@ GPU?=0
 DOCKER_FILE=Dockerfile
 DOCKER=GPU=$(GPU) nvidia-docker
 BACKEND=tensorflow
-PYTHON_VERSION?=3.5
+#PYTHON_VERSION?=3.5
+PYTHON_VERSION?=3.6
 #CUDA_VERSION?=8.0
 #CUDNN_VERSION?=6
 CUDA_VERSION?=9.0
@@ -22,4 +23,5 @@ build:
 
 bash: build
 	$(DOCKER) run -it -v $(SRC):/home/toque/work/ -v $(DATA):/home/toque/data -v $(DATA2):/home/toque/data2 --net=host --env KERAS_BACKEND=$(BACKEND) --name "my_python_container" $(IMAGE)
+#	$(DOCKER) run -it -v $(SRC):/home/toque/work/ -v $(DATA):/home/toque/data -v $(DATA2):/home/toque/data2 --net=host --env KERAS_BACKEND=$(BACKEND) --name "my_python_container"  $(IMAGE) 
 

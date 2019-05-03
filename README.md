@@ -1,10 +1,9 @@
 # Using Python with selected libraries via docker
 
-This directory contains `Dockerfile` to make it easy to get up and running with different Python environments via [Docker](http://www.docker.com/).  
+This directory contains `Dockerfile` to make it easy to get up and running with Python environments via [Docker](http://www.docker.com/).  
 It is largely inspired from the following repo https://github.com/keras-team/keras/tree/master/docker
 
-With this dockerfile it is possible to create a Python 2 and Python 3 environment and install different libraries.   
-Python 3.5.4 and Python 2.7.13 are installed
+With this dockerfile it is possible to create a Python 3.6 environment and install different libraries.   
 
 Available shell/process/editor:
  * zsh
@@ -19,7 +18,7 @@ i) run the container
 
 ii) activate Python version  
 
-    $ source activate py35 #or py27 for python 2.7  
+    $ source activate py36 
 
 iib) run ipython notebook and access it in from a remote computer  
 Computer with docker:  
@@ -70,8 +69,11 @@ Prints all make tasks
 
     $ make help
 
-You can change Theano parameters by editing `/docker/theanorc`.  
-You can change zshrc parameters by editing `/docker/zshrc`.
+You can change Theano parameters by editing `/docker/.theanorc`.  
+You can change zsh parameters by editing `/docker/.zshrc`.  
+You can change vim parameters by editing `/docker/.vimrc`.  
+
+
 
 
 Note: If you would have a problem running nvidia-docker you may try the old way

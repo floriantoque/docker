@@ -1,0 +1,172 @@
+docker build -t "flokeras" --build-arg python_version=3.5 --build-arg cuda_version=8.0 --build-arg cudnn_version=6 -f Dockerfile .
+Sending build context to Docker daemon   34.3kB
+Step 1/51 : ARG cuda_version=8.0
+ ---> 
+Step 2/51 : ARG cudnn_version=6
+ ---> 
+Step 3/51 : FROM nvidia/cuda:${cuda_version}-cudnn${cudnn_version}-devel
+ ---> 8796f34ccf11
+Step 4/51 : ENV CONDA_DIR /opt/conda
+ ---> Using cache
+ ---> e9b4624746f8
+Step 5/51 : ENV PATH $CONDA_DIR/bin:$PATH
+ ---> Using cache
+ ---> 6edb25cc7d8c
+Step 6/51 : RUN mkdir -p $CONDA_DIR &&     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh &&     apt-get update &&     apt-get install -y libmagic-dev &&     apt-get install -y htop &&     apt-get install -y wget git libhdf5-dev g++ graphviz openmpi-bin &&     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.2.12-Linux-x86_64.sh &&     echo "c59b3dd3cad550ac7596e0d599b91e75d88826db132e4146030ef471bb434e9a *Miniconda3-4.2.12-Linux-x86_64.sh" | sha256sum -c - &&     /bin/bash /Miniconda3-4.2.12-Linux-x86_64.sh -f -b -p $CONDA_DIR &&     rm Miniconda3-4.2.12-Linux-x86_64.sh &&     apt-get install -y zsh
+ ---> Using cache
+ ---> 587f196cca07
+Step 7/51 : ENV NB_USER toque
+ ---> Using cache
+ ---> bf284d0944fa
+Step 8/51 : ENV NB_UID 1000
+ ---> Using cache
+ ---> b57c855d2456
+Step 9/51 : RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER &&     mkdir -p $CONDA_DIR &&     chown $NB_USER $CONDA_DIR -R
+ ---> Using cache
+ ---> 6dd550bf5c99
+Step 10/51 : RUN git clone https://github.com/robbyrussell/oh-my-zsh.git /home/toque/.oh-my-zsh
+ ---> Using cache
+ ---> 74681cc3ae71
+Step 11/51 : USER toque
+ ---> Using cache
+ ---> b14c0f639759
+Step 12/51 : ARG python_version=3.5
+ ---> Using cache
+ ---> d65d5e3010ce
+Step 13/51 : ARG python_version2=2.7
+ ---> Using cache
+ ---> 988e33c3a959
+Step 14/51 : RUN conda create -yn py35 python=${python_version} pip
+ ---> Using cache
+ ---> 9978289454ac
+Step 15/51 : RUN /bin/bash -c "source activate py35"
+ ---> Using cache
+ ---> 249c775a02a3
+Step 16/51 : RUN /opt/conda/envs/py35/bin/pip install jupyter
+ ---> Using cache
+ ---> 4146f3cdda98
+Step 17/51 : RUN /opt/conda/envs/py35/bin/pip install eml-parser
+ ---> Using cache
+ ---> f39755ccada8
+Step 18/51 : RUN /opt/conda/envs/py35/bin/pip install tensorflow-gpu
+ ---> Using cache
+ ---> d73baae32101
+Step 19/51 : RUN /opt/conda/envs/py35/bin/pip install -U statsmodels
+ ---> Using cache
+ ---> 1181487e77be
+Step 20/51 : RUN /opt/conda/envs/py35/bin/pip install requests
+ ---> Using cache
+ ---> cbebc05a5ce4
+Step 21/51 : RUN /opt/conda/envs/py35/bin/pip install tqdm
+ ---> Using cache
+ ---> 208b7e496e06
+Step 22/51 : RUN /opt/conda/envs/py35/bin/pip install -U matplotlib
+ ---> Using cache
+ ---> fbbf8d120314
+Step 23/51 : RUN /opt/conda/envs/py35/bin/pip install seaborn
+ ---> Using cache
+ ---> e81082e09275
+Step 24/51 : RUN conda install -yn py35 theano pygpu bcolz
+ ---> Using cache
+ ---> 155b52cc9b13
+Step 25/51 : RUN /opt/conda/envs/py35/bin/pip install sklearn_pandas
+ ---> Using cache
+ ---> 80cd5ab1de32
+Step 26/51 : RUN conda install -yn py35 Pillow scikit-learn notebook pandas mkl nose pyyaml six h5py
+ ---> Using cache
+ ---> 49b5e3bd63a1
+Step 27/51 : RUN /opt/conda/envs/py35/bin/pip install git+git://github.com/fchollet/keras.git
+ ---> Using cache
+ ---> f5bcda483415
+Step 28/51 : RUN /opt/conda/envs/py35/bin/python -m ipykernel install --user --name py35 --display-name "Python 3.5 - env"
+ ---> Using cache
+ ---> e2f7cb38444a
+Step 29/51 : RUN conda clean -yt
+ ---> Using cache
+ ---> 3b1493f400ca
+Step 30/51 : RUN conda create -yn py27 python=${python_version2} pip
+ ---> Using cache
+ ---> a96b035fce57
+Step 31/51 : RUN /bin/bash -c "source activate py27"
+ ---> Using cache
+ ---> 8699112bd722
+Step 32/51 : RUN /opt/conda/envs/py27/bin/pip install jupyter
+ ---> Using cache
+ ---> 4932d41afc4a
+Step 33/51 : RUN /opt/conda/envs/py27/bin/pip install tensorflow-gpu
+ ---> Using cache
+ ---> 3568aade2faa
+Step 34/51 : RUN /opt/conda/envs/py27/bin/pip install -U statsmodels
+ ---> Using cache
+ ---> b18eccc2bded
+Step 35/51 : RUN /opt/conda/envs/py27/bin/pip install tqdm
+ ---> Using cache
+ ---> bba26857536f
+Step 36/51 : RUN /opt/conda/envs/py27/bin/pip install requests
+ ---> Using cache
+ ---> 660e3fd6196e
+Step 37/51 : RUN /opt/conda/envs/py27/bin/pip install geopandas
+ ---> Using cache
+ ---> 0e6eac7b89d0
+Step 38/51 : RUN conda install -yn py27 theano pygpu bcolz
+ ---> Using cache
+ ---> 4e8bf90cbd71
+Step 39/51 : RUN /opt/conda/envs/py27/bin/pip install sklearn_pandas
+ ---> Using cache
+ ---> a44c3d73e5e4
+Step 40/51 : RUN /opt/conda/envs/py27/bin/pip install -U matplotlib
+ ---> Using cache
+ ---> a800acdc1f4f
+Step 41/51 : RUN /opt/conda/envs/py27/bin/pip install seaborn
+ ---> Using cache
+ ---> 32d500756963
+Step 42/51 : RUN conda install -yn py27 Pillow scikit-learn notebook pandas mkl nose pyyaml six h5py
+ ---> Using cache
+ ---> b47a861de776
+Step 43/51 : RUN /opt/conda/envs/py27/bin/pip install git+git://github.com/fchollet/keras.git
+ ---> Using cache
+ ---> 818ee31126d5
+Step 44/51 : RUN /opt/conda/envs/py27/bin/python -m ipykernel install --user --name py27 --display-name "Python 2.7 - env"
+ ---> Using cache
+ ---> fae59fe4d861
+Step 45/51 : RUN conda clean -yt
+ ---> Using cache
+ ---> b5a043af3ace
+Step 46/51 : ADD theanorc /home/.theanorc
+ ---> Using cache
+ ---> 808a859e36a0
+Step 47/51 : ADD zshrc /home/toque/.zshrc
+ ---> Using cache
+ ---> 3c3226faf16b
+Step 48/51 : ENV PYTHONPATH '/home/toque/:$PYTHONPATH'
+ ---> Using cache
+ ---> 58ae725d7295
+Step 49/51 : WORKDIR /home
+ ---> Using cache
+ ---> a53fbbc72268
+Step 50/51 : EXPOSE 8888
+ ---> Using cache
+ ---> 78ea8590fea6
+Step 51/51 : CMD /bin/zsh
+ ---> Using cache
+ ---> dd0a1514d0dc
+Successfully built dd0a1514d0dc
+Successfully tagged flokeras:latest
+GPU=0 nvidia-docker run -it -v "/home/toque/Documents/workclean/project/":/home/toque/work/ -v "/home/toque/Documents/workclean/data":/home/toque/data --net=host --env KERAS_BACKEND=tensorflow "flokeras"
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;32m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004h[?2004l
+[1m[7m%[27m[1m[0m                                                                                ]2;toque@monster: /home]1;/home[0m[27m[24m[J[01;31m➜  [36m/home[00m [K[?1h=[?2004hMakefile:27 : la recette pour la cible « notebook » a échouée
